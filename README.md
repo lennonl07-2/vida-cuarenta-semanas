@@ -5,6 +5,18 @@ conocen en un paradero de Pamplona Alta (Lima) hasta el primer grito. Juegas
 como la conciencia de quien aún no nace — y, según avanzas, esa conciencia
 empieza a notar que alguien está decidiendo por ella. Tú.
 
+## Galería
+
+<table>
+<tr>
+<td align="center" valign="top"><img src="docs/screenshots/01-portada.png" alt="Portada narrativa" width="360"><br><sub>Portada narrativa</sub></td>
+<td align="center" valign="top"><img src="docs/screenshots/02-datos-de-partida.png" alt="Configuración de una partida" width="360"><br><sub>Configuración de una partida</sub></td>
+</tr>
+<tr>
+<td align="center" valign="top"><img src="docs/screenshots/03-escena-interactiva.png" alt="Escena de la historia" width="360"><br><sub>Escena de la historia</sub></td>
+</tr>
+</table>
+
 ## Cómo jugar
 
 Abre `index.html` en cualquier navegador moderno (doble clic basta; no hay
