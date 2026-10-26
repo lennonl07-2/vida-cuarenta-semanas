@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VIDA — una historia jugable desde antes del primer latido. Cuarenta semanas dentro de Pamplona Alta.">
+<title>VIDA · cuarenta semanas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23f6f1e7'/%3E%3Cpath d='M16 25c-5-3.6-9-6.9-9-11a5 5 0 0 1 9-2.9A5 5 0 0 1 25 14c0 4.1-4 7.4-9 11z' fill='%23c46a4a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Nunito:ital,wght@0,300..900;1,300..900&family=Caveat:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ══════════════ PANTALLA: TÍTULO ══════════════ -->
+<section id="pantalla-titulo" class="pantalla pantalla-titulo" aria-label="Pantalla de título">
+  <div class="titulo-marco">
+    <div class="titulo-sello">cartilla narrativa · n.º 001</div>
+    <h1 class="titulo-logo">VIDA</h1>
+    <p class="titulo-sub">cuarenta semanas</p>
+    <p class="titulo-lema">Una historia jugable que empieza antes del primer latido.<br>Del encuentro en el paradero al primer grito.</p>
+
+    <div class="titulo-ventana" id="titulo-feto" aria-hidden="true"></div>
+
+    <nav class="titulo-menu">
+      <button class="boton boton-principal" data-accion="nueva">Nueva partida</button>
+      <button class="boton" data-accion="continuar" hidden>Continuar</button>
+      <button class="boton" data-accion="indice">Índice de semanas</button>
+      <button class="boton" data-accion="acerca">Acerca de</button>
+    </nav>
+
+    <p class="titulo-aviso">Contiene temas médicos y momentos difíciles propios del embarazo.<br>Jugable por capítulos — la partida se guarda sola.</p>
+    <div class="titulo-pie">hecha a mano · html + css + js · sin dependencias</div>
+  </div>
+</section>
+
+<!-- ══════════════ PANTALLA: NOMBRES (nueva partida) ══════════════ -->
+<section id="pantalla-nombres" class="pantalla pantalla-nombres" aria-label="Nueva partida" hidden>
+  <div class="hoja-nombres">
+    <h2 class="hoja-titulo">Antes de empezar</h2>
+    <p class="hoja-nota">Los nombres pueden dejarse como están o cambiarse. El apodo lo elegirás más adelante, cuando la panza se note.</p>
+    <label class="campo">
+      <span>Ella — la madre</span>
+      <input type="text" id="nombre-mama" maxlength="18" placeholder="Camila" autocomplete="off">
+    </label>
+    <label class="campo">
+      <span>Él — el padre</span>
+      <input type="text" id="nombre-papa" maxlength="18" placeholder="Marcos" autocomplete="off">
+    </label>
+    <label class="campo">
+      <span>Tú — quien decide</span>
+      <input type="text" id="nombre-jugador" maxlength="18" placeholder="destino" autocomplete="off">
+    </label>
+    <div class="hoja-botones">
+      <button class="boton boton-principal" data-accion="empezar">Empezar la historia</button>
+      <button class="boton boton-vacio" data-accion="volver-titulo">Volver</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PANTALLA: NARRADOR ══════════════ -->
+<section id="pantalla-narrador" class="pantalla pantalla-narrador" aria-label="Elegir narrador" hidden>
+  <div class="hoja-narrador">
+    <header class="narrador-cabecera">
+      <p class="narrador-sello">elenco</p>
+      <h2 class="hoja-titulo">¿Quién te cuenta la historia?</h2>
+      <p class="hoja-nota">Elige una voz para escuchar cada escena. Pulsa ▶ para probarla. Podrás cambiarla cuando quieras desde el menú.</p>
+    </header>
+
+    <div class="narrador-sin-soporte" id="narrador-sin-soporte" hidden>
+      Tu navegador no ofrece voces instaladas. La historia se leerá igual,
+      con subtítulos; las voces llegarán si abres el juego en Chrome o Edge.
+    </div>
+
+    <h3 class="narrador-grupo-titulo">voces de mujer</h3>
+    <div class="narrador-rejilla" id="narrador-femeninas"></div>
+
+    <h3 class="narrador-grupo-titulo">voces de varón</h3>
+    <div class="narrador-rejilla" id="narrador-masculinas"></div>
+
+    <p class="narrador-consejo">¿El ▶ no suena? Sube el volumen del sistema y, si aun así calla,
+      cierra este navegador por completo y vuelve a abrirlo: así se reinicia su motor de voz.
+      También puedes probar otra voz o abrir el juego en Chrome o Edge.</p>
+
+    <div class="narrador-pie">
+      <div class="narrador-velocidad">
+        <span>ritmo de la lectura</span>
+        <div class="narrador-vel-controles">
+          <button class="boton boton-mini" data-accion="vel-menos" aria-label="Más lento">−</button>
+          <strong id="narrador-vel-valor">×1,0</strong>
+          <button class="boton boton-mini" data-accion="vel-mas" aria-label="Más rápido">+</button>
+        </div>
+        <span class="narrador-vel-ayuda">más rápido si da pereza leer · más lento para saborear</span>
+      </div>
+      <button class="boton boton-principal" data-accion="narrador-listo">Esa es — continuar</button>
+      <button class="boton boton-vacio" data-accion="narrador-volver">Volver</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PANTALLA: JUEGO ══════════════ -->
+<section id="pantalla-juego" class="pantalla pantalla-juego" aria-label="Partida" hidden>
+
+  <!-- HUD superior estilo cartilla -->
+  <header class="hud">
+    <button class="hud-menu" data-accion="menu" title="Menú" aria-label="Abrir menú">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="hud-semana">
+      <span class="hud-etiqueta">semana</span>
+      <strong class="hud-num" id="hud-num">—</strong>
+      <span class="hud-trimestre" id="hud-trimestre"></span>
+    </div>
+    <div class="hud-medidores" id="hud-medidores">
+      <div class="medidor" data-stat="salud"><span class="medidor-nombre">salud</span><div class="medidor-pista"><div class="medidor-barra"></div></div></div>
+      <div class="medidor" data-stat="vinculo"><span class="medidor-nombre">vínculo</span><div class="medidor-pista"><div class="medidor-barra"></div></div></div>
+      <div class="medidor" data-stat="desarrollo"><span class="medidor-nombre">desarrollo</span><div class="medidor-pista"><div class="medidor-barra"></div></div></div>
+      <div class="medidor medidor-oculto" data-stat="conciencia" hidden><span class="medidor-nombre">conciencia</span><div class="medidor-pista"><div class="medidor-barra"></div></div></div>
+    </div>
+    <button class="hud-audio" data-accion="audio" title="Latido" aria-label="Activar o silenciar latido" aria-pressed="false">
+      <svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+    </button>
+    <div class="hud-nav">
+      <button class="hud-nav-btn" data-accion="retro-escena" title="Retroceder una escena (deshace la última decisión)" aria-label="Escena anterior">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="hud-nav-btn" data-accion="avanzar-escena" title="Avanzar a la escena deshecha (solo si ya ocurrió)" aria-label="Escena siguiente">
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <button class="hud-narracion" data-accion="narracion" title="Narración on/off" aria-label="Activar o silenciar la narración" aria-pressed="true">
+      <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a9 9 0 0 1 0 12"/></svg>
+    </button>
+    <button class="hud-pausa" data-accion="pausa-narracion" title="Pausar o continuar la narración" aria-label="Pausar la narración" aria-pressed="false">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>
+    </button>
+  </header>
+
+  <div class="juego-cuerpo">
+
+    <!-- Columna izquierda: escena -->
+    <main class="lectura">
+      <div class="escena-cabecera">
+        <span class="escena-lugar" id="escena-lugar"></span>
+        <h2 class="escena-titulo" id="escena-titulo"></h2>
+      </div>
+
+      <!-- cuadrito del escenario: el lugar, dibujado -->
+      <figure class="escenario" id="escenario" aria-hidden="true"></figure>
+
+      <div class="escena-texto" id="escena-texto" tabindex="-1"></div>
+
+      <div class="voz-panel" id="voz-panel" hidden></div>
+
+      <!-- Zona de minijuegos -->
+      <div class="minijuego" id="minijuego" hidden></div>
+
+      <!-- Opciones -->
+      <div class="opciones" id="opciones" role="group" aria-label="Decisiones"></div>
+
+      <!-- Botón continuar para escenas lineales -->
+      <div class="avanzar" id="avanzar" hidden>
+        <button class="boton avanzar-boton" data-accion="continuar-escena">continuar<kbd>espacio</kbd></button>
+      </div>
+    </main>
+
+    <!-- Columna derecha: ventana al interior -->
+    <aside class="interior">
+      <figure class="ventana-feto" id="ventana-feto">
+        <div class="ventana-lienzo" id="ventana-lienzo"></div>
+        <figcaption class="ventana-pie">
+          <span id="feto-tamano">—</span>
+          <span class="ventana-bpm" id="feto-bpm"></span>
+        </figcaption>
+      </figure>
+
+      <div class="interior-recuerdos" id="interior-recuerdos">
+        <h3 class="recuerdos-titulo">recuerdos recogidos</h3>
+        <ul class="recuerdos-lista" id="recuerdos-lista"></ul>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Subtítulos de escenas sonoras -->
+  <div class="subtitulos" id="subtitulos" hidden></div>
+
+  <!-- Menú superpuesto -->
+  <div class="cortina" id="cortina-menu" hidden>
+    <div class="panel-menu">
+      <h3>Pausa</h3>
+      <button class="boton" data-accion="cerrar-menu">Seguir jugando</button>
+      <button class="boton" data-accion="abrir-narrador">Voz del narrador</button>
+      <div class="menu-velocidad">
+        <span>velocidad de la voz</span>
+        <div>
+          <button class="boton boton-mini" data-accion="vel-menos" aria-label="Más lenta">−</button>
+          <span class="vel-valor" id="vel-valor">×1,0</span>
+          <button class="boton boton-mini" data-accion="vel-mas" aria-label="Más rápida">+</button>
+        </div>
+      </div>
+      <button class="boton" data-accion="indice">Índice de semanas</button>
+      <button class="boton" data-accion="diario">Diario de Camila</button>
+      <button class="boton" data-accion="exportar">Copiar partida (código)</button>
+      <button class="boton" data-accion="importar">Pegar partida (código)</button>
+      <button class="boton" data-accion="acerca">Acerca de</button>
+      <button class="boton boton-vacio" data-accion="salir-titulo">Salir a título (guarda igual)</button>
+    </div>
+  </div>
+
+  <!-- Tarjeta de consecuencia -->
+  <div class="cortina cortina-consecuencia" id="tarjeta-consecuencia" hidden>
+    <article class="consecuencia-hoja">
+      <header class="consecuencia-sello">el hilo se tensó</header>
+      <p class="consecuencia-nota" id="consecuencia-nota"></p>
+      <ul class="consecuencia-efectos" id="consecuencia-efectos"></ul>
+      <button class="boton boton-principal" data-accion="cerrar-consecuencia">asumirlo</button>
+    </article>
+  </div>
+
+  <!-- Aviso flotante -->
+  <div class="toast" id="toast" role="status"></div>
+</section>
+
+<!-- ══════════════ PANTALLA: ÍNDICE ══════════════ -->
+<section id="pantalla-indice" class="pantalla pantalla-indice" aria-label="Índice de semanas" hidden>
+  <div class="indice-hoja">
+    <header class="indice-cabecera">
+      <h2>Índice de semanas</h2>
+      <p class="indice-nota">Las semanas marcadas ya fueron vividas. Las demás llegan cuando tocan.</p>
+      <button class="boton boton-vacio indice-volver" data-accion="volver-al-juego">Volver</button>
+    </header>
+    <div id="indice-contenido"></div>
+  </div>
+</section>
+
+<!-- ══════════════ PANTALLA: DIARIO ══════════════ -->
+<section id="pantalla-diario" class="pantalla pantalla-diario" aria-label="Diario" hidden>
+  <div class="diario-hoja-grande">
+    <header class="indice-cabecera">
+      <h2>Diario</h2>
+      <p class="indice-nota">Páginas que {mama} fue escribiendo a escondidas.</p>
+      <button class="boton boton-vacio indice-volver" data-accion="volver-al-juego">Volver</button>
+    </header>
+    <div class="diario-coleccion" id="diario-coleccion"></div>
+  </div>
+</section>
+
+<!-- ══════════════ PANTALLA: ACERCA / FINAL COMPARTEN ESTRUCTURA ══════════════ -->
+<section id="pantalla-acerca" class="pantalla pantalla-acerca" aria-label="Acerca de" hidden>
+  <div class="hoja-nombres hoja-acerca">
+    <h2 class="hoja-titulo">Acerca de VIDA</h2>
+    <div class="acerca-cuerpo">
+      <p><strong>VIDA · cuarenta semanas</strong> es una novela visual sobre la gestación contada desde adentro: el encuentro de dos personas en Pamplona Alta, las semanas dentro del útero semana a semana con datos reales de desarrollo, y un parto cuyo resultado depende de cada decisión tomada.</p>
+      <p><strong>La conciencia.</strong> Hay un quinto medidor que aparece si eliges mirar de cerca. Es la voz de quien aún no nace y que, según cómo avances, empieza a notar algo: que alguien está decidiendo por ella. Tú.</p>
+      <p><strong>Realismo.</strong> Los tamaños, pesos, latidos y fechas de cada etapa siguen la obstetricia real. Los personajes y el barrio son ficción con sabor de Lima: neblina, escaleras, mototaxis, la posta, la lata donde se ahorra para el parto.</p>
+      <p><strong>Aviso.</strong> La historia incluye sangrados, sismos, pérdidas económicas y, por malos caminos, una pérdida gestacional tratada con respeto. Si estás pasando por un embarazo real y delicado, juega con cuidado o acompáñate de alguien.</p>
+      <p class="acerca-tipos">Tipografías: Fraunces · Nunito · Caveat · IBM Plex Mono. Latido generado con WebAudio, sin archivos ni servidores.</p>
+    </div>
+    <button class="boton" data-accion="volver-atras">Volver</button>
+  </div>
+</section>
+
+<!-- ══════════════ PANTALLA: FINAL ══════════════ -->
+<section id="pantalla-final" class="pantalla pantalla-final" aria-label="Final de la historia" hidden>
+  <div class="final-hoja">
+    <div class="final-sello" id="final-sello">fin de la cartilla</div>
+    <h2 class="final-titulo" id="final-titulo"></h2>
+    <div class="final-cuerpo" id="final-cuerpo"></div>
+    <div class="final-datos" id="final-datos"></div>
+    <div class="final-cartavozy" id="final-carta"></div>
+    <div class="final-botones">
+      <button class="boton" data-accion="ver-indice-final">Índice de semanas</button>
+      <button class="boton boton-principal" data-accion="otra-vida">Vivir otra vida</button>
+    </div>
+  </div>
+</section>
+
+<script src="js/engine.js"></script>
+<script src="js/conciencia.js"></script>
+<script src="js/feto.js"></script>
+<script src="js/escenas.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/narrador.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/data/prologo.js"></script>
+<script src="js/data/t1.js"></script>
+<script src="js/data/t2.js"></script>
+<script src="js/data/t3.js"></script>
+<script src="js/data/parto.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
